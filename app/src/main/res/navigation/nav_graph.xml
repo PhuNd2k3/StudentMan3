@@ -13,7 +13,14 @@
             app:destination="@id/addStudentFragment" />
         <action
             android:id="@+id/action_mainFragment_to_editStudentFragment"
-            app:destination="@id/editStudentFragment" />
+            app:destination="@id/editStudentFragment">
+            <argument
+                android:name="studentName"
+                app:argType="string" />
+            <argument
+                android:name="studentId"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <fragment
@@ -24,5 +31,12 @@
     <fragment
         android:id="@+id/editStudentFragment"
         android:name="vn.edu.hust.studentman.EditStudentFragment"
-        tools:layout="@layout/fragment_edit_student" />
+        tools:layout="@layout/fragment_edit_student">
+        <argument
+            android:name="studentName"
+            app:argType="string" />
+        <argument
+            android:name="studentId"
+            app:argType="string" />
+    </fragment>
 </navigation>

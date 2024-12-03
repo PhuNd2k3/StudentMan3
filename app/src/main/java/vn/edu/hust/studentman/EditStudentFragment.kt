@@ -8,8 +8,11 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 
 class EditStudentFragment : Fragment() {
+
+    private val args: EditStudentFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +28,9 @@ class EditStudentFragment : Fragment() {
         val idEditText = view.findViewById<EditText>(R.id.edit_mssv)
         val saveButton = view.findViewById<Button>(R.id.button_save)
 
-        // Logic to pre-fill the EditText fields with the selected student's information
+        // Pre-fill the EditText fields with the selected student's information
+        nameEditText.setText(args.studentName)
+        idEditText.setText(args.studentId)
 
         saveButton.setOnClickListener {
             val name = nameEditText.text.toString()

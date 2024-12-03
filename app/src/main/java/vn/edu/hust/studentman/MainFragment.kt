@@ -29,6 +29,7 @@ class MainFragment : Fragment() {
         StudentModel("Nguyễn Thị Thu", "SV017"),
         StudentModel("Trần Văn Tài", "SV018"),
         StudentModel("Phạm Thị Tuyết", "SV019"),
+        StudentModel("Lê Văn Vũ", "SV020")
     )
 
     override fun onCreateView(
@@ -57,7 +58,8 @@ class MainFragment : Fragment() {
         val student = students[info.position]
         return when (item.itemId) {
             R.id.action_edit -> {
-                findNavController().navigate(R.id.action_mainFragment_to_editStudentFragment)
+                val action = MainFragmentDirections.actionMainFragmentToEditStudentFragment(student.name, student.id)
+                findNavController().navigate(action)
                 true
             }
             R.id.action_remove -> {
