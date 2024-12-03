@@ -2,6 +2,7 @@ package vn.edu.hust.studentman
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -21,8 +22,13 @@ class MainActivity : AppCompatActivity() {
 
         toolbar.overflowIcon?.setTint(Color.WHITE)
 
-        val navController = findNavController(R.id.nav_host_fragment)
-        setupActionBarWithNavController(navController)
+        try {
+            val navController = findNavController(R.id.nav_host_fragment)
+            setupActionBarWithNavController(navController)
+            Log.d("MainActivity", "NavController set up successfully")
+        } catch (e: Exception) {
+            Log.e("MainActivity", "Error setting up NavController", e)
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

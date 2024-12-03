@@ -2,9 +2,10 @@ package vn.edu.hust.studentman
 
 import android.os.Bundle
 import android.view.*
-import android.widget.ArrayAdapter
+import android.widget.AdapterView
 import android.widget.ListView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 
 class MainFragment : Fragment() {
 
@@ -28,7 +29,6 @@ class MainFragment : Fragment() {
         StudentModel("Nguyễn Thị Thu", "SV017"),
         StudentModel("Trần Văn Tài", "SV018"),
         StudentModel("Phạm Thị Tuyết", "SV019"),
-        StudentModel("Lê Văn Vũ", "SV020")
     )
 
     override fun onCreateView(
@@ -41,12 +41,8 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val listView: ListView = view.findViewById(R.id.listView)
-        val adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_list_item_1,
-            students.map { "${it.name} (${it.id})" }
-        )
+        val listView: ListView = view.findViewById(R.id.list_view_students)
+        val adapter = StudentAdapter(requireContext(), students)
         listView.adapter = adapter
         registerForContextMenu(listView)
     }
@@ -57,13 +53,16 @@ class MainFragment : Fragment() {
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
+        val info = item.menuInfo as AdapterView.AdapterContextMenuInfo
+        val student = students[info.position]
         return when (item.itemId) {
             R.id.action_edit -> {
-                // Handle edit action
+                findNavController().navigate(R.id.action_mainFragment_to_editStudentFragment)
                 true
             }
             R.id.action_remove -> {
-                // Handle remove action
+                students.removeAt(info.position)
+                (view?.findViewById<ListView>(R.id.list_view_students)?.adapter as StudentAdapter).notifyDataSetChanged()
                 true
             }
             else -> super.onContextItemSelected(item)
